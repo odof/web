@@ -128,7 +128,7 @@
               >
 
         <xpath expr="//ul" position="replace">
-
+            <t t-set="menu_prev" t-value="False" />
             <t t-foreach="menu['children']" t-as="menu">
                 <t t-if="menu['children']">
                     <li t-attf-class="{{ 'dropdown-header' if submenu else '' }}">
@@ -159,10 +159,11 @@
                     </li>
                 </t>
                 <t t-if="not menu['children']">
-                    <li>
+                    <li t-attf-class="{{ 'of_higher_level' if menu_prev and menu_prev['children'] and not menu['children'] else '' }}">
                         <t t-call="web.menu_link" />
                     </li>
                 </t>
+                <t t-set="menu_prev" t-value="menu" />
             </t>
 
         </xpath>
